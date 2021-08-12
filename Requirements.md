@@ -1,4 +1,4 @@
-## Project 1 Requirements
+# Project 1 Requirements
 - Individual project adopting enterprise standards
 - Theme: FinTech (Banking, Investing, Personal Finance, etc...)
 - Org Repo name: p1-username-optionalProjectName
@@ -8,7 +8,7 @@
 - Reactive HTTP server with Reactor Netty
 - 5-7 minute presentations on Friday, August 20th
 
-### Technical:
+## Technical:
 - GitHub Organization repo (SakuraMatrix)
 - Java 8+
   - Maven
@@ -20,7 +20,7 @@
   - Spring Core/Beans/Context
 - Amazon Web Services (kinda optional)
 
-### Quality
+## Quality
 - Google standards
 - Maven standards
 - Jar packaging
@@ -28,11 +28,28 @@
 - Unit Testing
 - Files & Console logging
 
-### Suggested development philosophy: Suffering Oriented Programming
+## Suggested development philosophy: Suffering Oriented Programming
 1. Functionality - Make it possible: build a prototype without any bells or whistles, make it as fast as you can, don't care about complex architecture (OOP), don't care about many features at first, just think about what is your MVP (minimal viable product).
 2. Quality - Make it beautiful: once you have your prototype, beautify it with added features, architecture changes (OOP, packages), refactor for readability, maintainibility, extensibility
 3. Performance - Make it fast: consider your bottlenecks and future scalability issues, and improve what is economical at that moment.
 
-### Suggested development methodology: Agile
+## Suggested development methodology: Agile
 - Documented user stories
 - Standup: GitHub post w/ daily work accomplished, current blockers, & future work planned
+
+## Suggested goals
+Divide and organize project features by RESTful endpoints and queries. i.e.:
+### RESTful Server endpoints:
+- Employees (GET/POST/DELETE)
+- Departments (GET)
+
+### Database queries
+- Query: What is the average salary of all employees from department (optional: between salary range)?
+- Query: Which is the employee with the highest salary from all departments?
+- Query: Which is the department with the lowest total payroll amount?
+
+### Example usage
+HTTP GET requests to:
+- Return a list of all employees: `/employees`
+- Return a representation of an employee with id: `/employees/{id}`
+- Return the result of a query: `/employees?query=average`
