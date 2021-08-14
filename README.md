@@ -8,7 +8,12 @@ uInvest is a self directed trading service where a user can build their portfoli
 - User will be able to add additional funds or withdraw unused funds
 
 ## Usage:
-- Making a GET request to localhost:8080/stocks/(stock symbol here) will return the current price of the stock
-- Additional endpoints to buy/sell shares TBA
+- GET /assets/{symbol} retrieves the price of the stock with symbol {symbol}
+- GET /positions retrieves a list of all currently owned stocks
+- POST /positions/{symbol} buys a stock with symbol {symbol} <!-- add quantity as a query? -->
+- DELETE /positions sells all currently owned stock
+- DELETE /positions/{symbol} sells a stock with symbol {symbol} <!-- add quantity as a query? -->
+
+<!-- - Add a favorites/watchlist?  -->
 
 TBA
