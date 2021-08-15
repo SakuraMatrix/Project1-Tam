@@ -3,8 +3,11 @@ package com.github.tamhpn.repository;
 import com.datastax.oss.driver.api.core.CqlSession;
 import com.github.tamhpn.domain.Stock;
 
+import org.springframework.stereotype.Repository;
+
 import reactor.core.publisher.Flux;
 
+@Repository
 public class StockRepository {
     private CqlSession session;
 

@@ -3,8 +3,11 @@ package com.github.tamhpn.service;
 import com.github.tamhpn.domain.Stock;
 import com.github.tamhpn.repository.StockRepository;
 
+import org.springframework.stereotype.Service;
+
 import reactor.core.publisher.Flux;
 
+@Service
 public class StockService {
     private StockRepository stockRepository;
 
