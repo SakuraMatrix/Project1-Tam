@@ -3,8 +3,11 @@ package com.github.tamhpn.repository;
 import com.datastax.oss.driver.api.core.CqlSession;
 import com.github.tamhpn.domain.Stock;
 
+import org.springframework.stereotype.Repository;
+
 import reactor.core.publisher.Flux;
 
+@Repository
 public class StockRepository {
     private CqlSession session;
 
@@ -17,7 +20,7 @@ public class StockRepository {
             .map(row -> new Stock(row.getString("symbol"), row.getDouble("price")));
     }
 
-    public Flux<Stock> get(String symbol) { // flux to get more than one row
+    public Flux<Stock> get(String symbol) {
         return Flux.from(session.executeReactive("SELECT * FROM brokerage.holdings WHERE symbol = '" + symbol + "';"))
             .map(row -> new Stock(row.getString("symbol"), row.getDouble("price")));
     }
