@@ -17,7 +17,7 @@ public class StockRepository {
             .map(row -> new Stock(row.getString("symbol"), row.getDouble("price")));
     }
 
-    public Flux<Stock> get(String symbol) { // flux to get more than one row
+    public Flux<Stock> get(String symbol) {
         return Flux.from(session.executeReactive("SELECT * FROM brokerage.holdings WHERE symbol = '" + symbol + "';"))
             .map(row -> new Stock(row.getString("symbol"), row.getDouble("price")));
     }
