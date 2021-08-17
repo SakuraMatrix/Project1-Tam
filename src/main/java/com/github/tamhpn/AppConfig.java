@@ -30,6 +30,6 @@ public class AppConfig {
 
     @Bean
     public StockClient stockClient() {
-        return new StockClient();
+        return new StockClient(""); // Obtain API key at https://financialmodelingprep.com/developer/docs
     }
 }
