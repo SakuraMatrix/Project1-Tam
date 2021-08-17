@@ -32,10 +32,10 @@ public class StockRepository {
     }
 
     public void sellAll() {
-        Flux.just("TRUNCATE brokerage.holdings;").flatMap(session::executeReactive).subscribe(); // deletes all rows
+        Flux.just("TRUNCATE brokerage.holdings;").flatMap(session::executeReactive).subscribe();
     }
 
     public void sell(String symbol) {
-        Flux.just("DELETE FROM brokerage.holdings WHERE symbol = '" + symbol + "';").flatMap(session::executeReactive).subscribe(); // deletes all rows with matching symbol, add some way to specify quantity
+        Flux.just("DELETE FROM brokerage.holdings WHERE symbol = '" + symbol + "';").flatMap(session::executeReactive).subscribe();
     }
 }

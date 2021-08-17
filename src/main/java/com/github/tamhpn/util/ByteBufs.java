@@ -10,7 +10,7 @@ import io.netty.buffer.Unpooled;
 
 public class ByteBufs {
     public static ObjectMapper OBJECT_MAPPER = new ObjectMapper();
-
+    
     public static ByteBuf toByteBuf(Object obj) {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         try {
