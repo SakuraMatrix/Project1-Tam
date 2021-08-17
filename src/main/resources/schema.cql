@@ -2,10 +2,8 @@ CREATE KEYSPACE IF NOT EXISTS brokerage WITH REPLICATION = {'class' : 'SimpleStr
 
 CREATE TABLE IF NOT EXISTS brokerage.holdings (
     symbol text,
+    name text,
     price double,
-    PRIMARY KEY (symbol, price)
+    timestamp bigint,
+    PRIMARY KEY (symbol, timestamp)
 );
-
-INSERT INTO brokerage.holdings (symbol, price) VALUES ('AMD', 110.55);
-INSERT INTO brokerage.holdings (symbol, price) VALUES ('GME', 162.52);
-INSERT INTO brokerage.holdings (symbol, price) VALUES ('GME', 419.99);
