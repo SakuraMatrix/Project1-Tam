@@ -22,14 +22,14 @@ public class AppConfig {
     public CqlSession cqlSession() {
         return CqlSession.builder().build();
     }
-    
-    @Bean
-    public DisposableServer disposableServer() {
-        return new StockServer(stockClient(), stockService, "localhost", 8080).getServer();
-    }
 
     @Bean
     public StockClient stockClient() {
         return new StockClient(""); // Obtain API key at https://financialmodelingprep.com/developer/docs
+    }
+    
+    @Bean
+    public DisposableServer disposableServer() {
+        return new StockServer(stockService, "localhost", 8080).getServer();
     }
 }
