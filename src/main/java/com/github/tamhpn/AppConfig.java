@@ -10,11 +10,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import reactor.netty.DisposableServer;
 
 @Configuration
 @ComponentScan
 public class AppConfig {
+    Dotenv dotenv = Dotenv.load();
     @Autowired
     StockService stockService;
 
@@ -25,7 +27,7 @@ public class AppConfig {
 
     @Bean
     public StockClient stockClient() {
-        return new StockClient(""); // Obtain API key at https://financialmodelingprep.com/developer/docs
+        return new StockClient(dotenv.get("API_KEY"));
     }
     
     @Bean

@@ -3,3 +3,6 @@ target/
 
 .classpath
 .project
+
+# Dotenv file for API key
+.env
