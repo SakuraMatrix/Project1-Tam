@@ -71,10 +71,12 @@ java -jar target/uinvest-{version}-jar-with-dependencies.jar
   - ![GET request to /positions/TSLA](https://github.com/SakuraMatrix/p1-Tam-uInvest/blob/dev/img/GET%20%E2%81%84positions%E2%81%84TSLA.png)
 - POST `/positions/{symbol}` buys a share with the given symbol
 - DELETE `/positions` sells all currently owned shares
-- DELETE `/positions/{symbol}` sells a share with the given symbol
+- DELETE `/positions/{symbol}` sells all shares with the given symbol
 
 ## Issues/Todo
 - Watchlist page to track stocks marked as favorite?
 - Aggregate results to display total quantity of a share owned + average purchase price
+- Additional queries for the above, such as displaying max price, etc.
+- Sell only one share rather than all shares (possibly identified by timestamp?)
 - Logging
 - Testing
