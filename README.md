@@ -76,7 +76,6 @@ java -jar target/uinvest-{version}-jar-with-dependencies.jar
 ## Issues/Todo
 - Watchlist page to track stocks marked as favorite?
 - Aggregate results to display total quantity of a share owned + average purchase price
-- Additional queries for the above, such as displaying max price, etc.
-- Sell only one share rather than all shares (possibly identified by timestamp?)
-- Logging
+- Additional queries, such as displaying max price, etc.
+- Sell only one share rather than all shares (identified by timestamp?)
 - Testing
