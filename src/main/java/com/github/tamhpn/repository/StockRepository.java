@@ -1,6 +1,10 @@
 package com.github.tamhpn.repository;
 
 import com.datastax.oss.driver.api.core.CqlSession;
+import com.datastax.oss.driver.api.querybuilder.delete.Delete;
+import com.datastax.oss.driver.api.querybuilder.insert.Insert;
+import com.datastax.oss.driver.api.querybuilder.select.Select;
+import com.datastax.oss.driver.api.querybuilder.truncate.Truncate;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,6 +14,8 @@ import com.github.tamhpn.http.StockClient;
 import org.springframework.stereotype.Repository;
 
 import reactor.core.publisher.Flux;
+
+import static com.datastax.oss.driver.api.querybuilder.QueryBuilder.*;
 
 @Repository
 public class StockRepository {
@@ -25,32 +31,49 @@ public class StockRepository {
     }
 
     public Flux<Stock> getAll() {
-        return Flux.from(session.executeReactive("SELECT * FROM brokerage.holdings;"))
-            .map(row -> new Stock(row.getString("symbol"), row.getString("name"), row.getDouble("price"), row.getLong("timestamp")));
+        Select query = selectFrom("brokerage", "holdings").all();
+        return Flux.from(session.executeReactive(query.build()))
+            .map(row -> new Stock(row.getString("symbol"),
+                row.getString("name"),
+                row.getDouble("price"),
+                row.getLong("timestamp")));
     }
 
     public Flux<Stock> get(String symbol) {
-        return Flux.from(session.executeReactive("SELECT * FROM brokerage.holdings WHERE symbol = '" + symbol + "';"))
-            .map(row -> new Stock(row.getString("symbol"), row.getString("name"), row.getDouble("price"), row.getLong("timestamp")));
+        Select query = selectFrom("brokerage", "holdings").all()
+            .whereColumn("symbol").isEqualTo(literal(symbol));
+        return Flux.from(session.executeReactive(query.build()))
+            .map(row -> new Stock(row.getString("symbol"),
+                row.getString("name"),
+                row.getDouble("price"),
+                row.getLong("timestamp")));
     }
 
     public void buy(String symbol) {
         client.getStock(symbol).subscribe(response -> {
             Stock stock = deserializeStock(response.substring(2, response.length() - 2));
-            Flux.just("INSERT INTO brokerage.holdings (symbol, name, price, timestamp) VALUES ('" + stock.getSymbol() + "', '" + stock.getName() + "', " + stock.getPrice() + ", " + stock.getTimestamp() + ");")
+            Insert query = insertInto("brokerage", "holdings")
+                .value("symbol", literal(stock.getSymbol()))
+                .value("name", literal(stock.getName()))
+                .value("price", literal(stock.getPrice()))
+                .value("timestamp", literal(stock.getTimestamp()));
+            Flux.just(query.build())
                 .flatMap(session::executeReactive)
                 .subscribe();
         });
     }
 
     public void sellAll() {
-        Flux.just("TRUNCATE brokerage.holdings;")
+        Truncate query = truncate("brokerage", "holdings");
+        Flux.just(query.build())
             .flatMap(session::executeReactive)
             .subscribe();
     }
 
     public void sell(String symbol) {
-        Flux.just("DELETE FROM brokerage.holdings WHERE symbol = '" + symbol + "';")
+        Delete query = deleteFrom("brokerage", "holdings")
+            .whereColumn("symbol").isEqualTo(literal(symbol));
+        Flux.just(query.build())
             .flatMap(session::executeReactive)
             .subscribe();
     }
