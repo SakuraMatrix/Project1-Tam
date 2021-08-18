@@ -5,11 +5,7 @@ import com.datastax.oss.driver.api.querybuilder.delete.Delete;
 import com.datastax.oss.driver.api.querybuilder.insert.Insert;
 import com.datastax.oss.driver.api.querybuilder.select.Select;
 import com.datastax.oss.driver.api.querybuilder.truncate.Truncate;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.tamhpn.domain.Stock;
-import com.github.tamhpn.http.StockClient;
 
 import org.springframework.stereotype.Repository;
 
@@ -20,14 +16,9 @@ import static com.datastax.oss.driver.api.querybuilder.QueryBuilder.*;
 @Repository
 public class StockRepository {
     private CqlSession session;
-    private ObjectMapper objectMapper;
-    private StockClient client;
 
-    public StockRepository(CqlSession session, StockClient client) {
+    public StockRepository(CqlSession session) {
         this.session = session;
-        this.objectMapper = new ObjectMapper();
-        this.objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        this.client = client;
     }
 
     public Flux<Stock> getAll() {
@@ -49,18 +40,15 @@ public class StockRepository {
                 row.getLong("timestamp")));
     }
 
-    public void buy(String symbol) {
-        client.getStock(symbol).subscribe(response -> {
-            Stock stock = deserializeStock(response.substring(2, response.length() - 2));
-            Insert query = insertInto("brokerage", "holdings")
-                .value("symbol", literal(stock.getSymbol()))
-                .value("name", literal(stock.getName()))
-                .value("price", literal(stock.getPrice()))
-                .value("timestamp", literal(stock.getTimestamp()));
-            Flux.just(query.build())
-                .flatMap(session::executeReactive)
-                .subscribe();
-        });
+    public void buy(Stock stock) {
+        Insert query = insertInto("brokerage", "holdings")
+            .value("symbol", literal(stock.getSymbol()))
+            .value("name", literal(stock.getName()))
+            .value("price", literal(stock.getPrice()))
+            .value("timestamp", literal(stock.getTimestamp()));
+        Flux.just(query.build())
+            .flatMap(session::executeReactive)
+            .subscribe();
     }
 
     public void sellAll() {
@@ -76,16 +64,5 @@ public class StockRepository {
         Flux.just(query.build())
             .flatMap(session::executeReactive)
             .subscribe();
-    }
-
-    private Stock deserializeStock(String stockJsonString) {
-        Stock stock;
-        try {
-            stock = objectMapper.readValue(stockJsonString, Stock.class);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            stock = null;
-        }
-        return stock;
     }
 }
