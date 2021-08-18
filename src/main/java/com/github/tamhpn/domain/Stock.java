@@ -4,7 +4,7 @@ public class Stock {
     private String symbol;
     private String name;
     private double price;
-    private long timestamp; // in seconds (epoch)
+    private long timestamp;
 
     public Stock() {
         
