@@ -38,6 +38,10 @@ $ docker cp src/main/resources/schema.cql cassandra:schema.cql
 $ docker exec -it cassandra bash
 $ cqlsh -f schema.cql
 ```
+* For future instances, the container should be started with the command
+```
+$ docker start cassandra
+```
 
 ### Configure API key
 This project uses a free API from Financial Modeling Prep to look up stock prices. You can obtain a free API key at https://financialmodelingprep.com/developer
@@ -56,7 +60,7 @@ This will create a JAR file at `target/uinvest-{version}-jar-with-dependencies.j
 
 You can execute the JAR file with
 ```
-java -jar target/uinvest-{version}-jar-with-dependencies.jar
+$ java -jar target/uinvest-{version}-jar-with-dependencies.jar
 ```
 
 ## RESTful API endpoints
@@ -77,5 +81,7 @@ java -jar target/uinvest-{version}-jar-with-dependencies.jar
 - Watchlist page to track stocks marked as favorite?
 - Aggregate results to display total quantity of a share owned + average purchase price
 - Additional queries, such as displaying max price, etc.
-- Sell only one share rather than all shares (identified by timestamp?)
-- Testing
+- Endpoint to sell only one share (identified by timestamp?)
+- Unit tests
+- Configure and deploy to AWS (both database and application)
+- Spring PropertySource / application.properties
