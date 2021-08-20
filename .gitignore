@@ -1,8 +1,12 @@
 .settings/
-target/
-
 .classpath
 .project
 
+# Maven target folder
+target/
+
 # Dotenv file for API key
 .env
+
+# Logback logs
+logs/

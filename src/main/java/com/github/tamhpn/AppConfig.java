@@ -29,7 +29,7 @@ public class AppConfig {
     public StockClient stockClient() {
         return new StockClient(dotenv.get("API_KEY"));
     }
-    
+
     @Bean
     public DisposableServer disposableServer() {
         return new StockServer(stockService, "localhost", 8080).getServer();

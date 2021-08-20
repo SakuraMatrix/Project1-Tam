@@ -7,6 +7,8 @@ import com.github.tamhpn.domain.Stock;
 import com.github.tamhpn.http.StockClient;
 import com.github.tamhpn.repository.StockRepository;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import reactor.core.publisher.Flux;
@@ -14,6 +16,8 @@ import reactor.core.publisher.Mono;
 
 @Service
 public class StockService {
+    private static Logger logger = LoggerFactory.getLogger(StockService.class);
+
     private ObjectMapper objectMapper;
     private StockClient stockClient;
     private StockRepository stockRepository;
@@ -55,8 +59,10 @@ public class StockService {
     private Stock deserializeStock(String stockJsonString) {
         Stock stock;
         try {
+            logger.info("Serializing JSON into Stock");
             stock = objectMapper.readValue(stockJsonString, Stock.class);
         } catch (JsonProcessingException e) {
+            logger.error(e.getMessage());
             e.printStackTrace();
             stock = null;
         }
