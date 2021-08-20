@@ -17,6 +17,7 @@ uInvest is a self directed trading service where you can build your portfolio wi
 
 ### Requirements
 - Java 8+
+- Maven
 - Docker
 
 ### Database setup
