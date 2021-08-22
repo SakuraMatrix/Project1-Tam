@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.tamhpn.domain.Stock;
+import com.github.tamhpn.domain.StockInfo;
 import com.github.tamhpn.http.StockClient;
 import com.github.tamhpn.repository.StockRepository;
 
@@ -29,8 +30,8 @@ public class StockService {
         this.stockRepository = stockRepository;
     }
 
-    public Mono<String> searchStock(String symbol) {
-        return stockClient.getStock(symbol).map(response -> response.substring(2, response.length() - 2));
+    public Mono<StockInfo> searchStock(String symbol) {
+        return stockClient.getStock(symbol).map(response -> deserializeStockInfo(response.substring(2, response.length() - 2)));
     }
 
     public Flux<Stock> getAll() {
@@ -67,5 +68,18 @@ public class StockService {
             stock = null;
         }
         return stock;
+    }
+
+    private StockInfo deserializeStockInfo(String stockInfoJsonString) {
+        StockInfo stockInfo;
+        try {
+            logger.info("Serializing JSON into StockInfo");
+            stockInfo = objectMapper.readValue(stockInfoJsonString, StockInfo.class);
+        } catch (JsonProcessingException e) {
+            logger.error(e.getMessage());
+            e.printStackTrace();
+            stockInfo = null;
+        }
+        return stockInfo;
     }
 }

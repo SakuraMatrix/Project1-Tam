@@ -1,5 +1,6 @@
 package com.github.tamhpn.controller;
 
+import com.github.tamhpn.domain.StockInfo;
 import com.github.tamhpn.service.StockService;
 
 import org.slf4j.Logger;
@@ -23,7 +24,7 @@ public class StockLookupController {
     }
 
     @GetMapping("/{symbol}")
-    public Mono<String> searchStock(@PathVariable String symbol) {
+    public Mono<StockInfo> searchStock(@PathVariable String symbol) {
         logger.info("Client made a GET request to /search/" + symbol);
         return stockService.searchStock(symbol);
     }
