@@ -68,13 +68,13 @@ $ java -jar target/uinvest-{version}-jar-with-dependencies.jar
 ## RESTful API endpoints
 - GET `/search/{symbol}` retrieves the price of the stock of the given symbol
   - Example: GET `/search/GOOGL`
-  - ![GET request to /search/GOOGL](https://raw.githubusercontent.com/SakuraMatrix/p1-Tam-uInvest/dev/img/GET%20%E2%81%84search%E2%81%84GOOGL.png)
+  - ![GET request to /search/GOOGL](https://raw.githubusercontent.com/SakuraMatrix/p1-Tam-uInvest/webflux-implementation/img/GET%20%E2%81%84search%E2%81%84GOOGL.png)
 - GET `/holdings` retrieves a list of all currently owned stocks
   - Example: GET `/holdings`
-  - ![GET request to /holdings](https://raw.githubusercontent.com/SakuraMatrix/p1-Tam-uInvest/dev/img/GET%20%E2%81%84holdings.png)
+  - ![GET request to /holdings](https://raw.githubusercontent.com/SakuraMatrix/p1-Tam-uInvest/webflux-implementation/img/GET%20%E2%81%84holdings.png)
 - GET `/holdings/{symbol}` retrieves a list of all currently owned stocks of the given symbol
   - Example: GET `/holdings/GOOGL`
-  - ![GET request to /holdings/GOOGL](https://raw.githubusercontent.com/SakuraMatrix/p1-Tam-uInvest/dev/img/GET%20%E2%81%84holdings%E2%81%84GOOGL.png)
+  - ![GET request to /holdings/GOOGL](https://raw.githubusercontent.com/SakuraMatrix/p1-Tam-uInvest/webflux-implementation/img/GET%20%E2%81%84holdings%E2%81%84GOOGL.png)
 - POST `/holdings/{symbol}` buys a share with the given symbol
 - DELETE `/holdings` sells all currently owned shares
 - DELETE `/holdings/{symbol}` sells all shares with the given symbol
