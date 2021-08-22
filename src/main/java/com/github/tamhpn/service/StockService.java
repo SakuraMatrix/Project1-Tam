@@ -23,14 +23,14 @@ public class StockService {
     private StockRepository stockRepository;
 
     public StockService(StockClient stockClient, StockRepository stockRepository) {
-        this.objectMapper = new ObjectMapper();
-        this.objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        objectMapper = new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         this.stockClient = stockClient;
         this.stockRepository = stockRepository;
     }
 
     public Mono<String> searchStock(String symbol) {
-        return stockClient.getStock(symbol);
+        return stockClient.getStock(symbol).map(response -> response.substring(2, response.length() - 2));
     }
 
     public Flux<Stock> getAll() {
