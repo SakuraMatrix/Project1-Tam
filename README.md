@@ -9,7 +9,8 @@ uInvest is a self directed trading service where you can build your portfolio wi
 ## Technology Stack
 * Java 8+
 * Maven
-* Spring
+* Spring Core
+* Spring Webflux
 * Reactor Netty
 * Cassandra
 
@@ -65,18 +66,18 @@ $ java -jar target/uinvest-{version}-jar-with-dependencies.jar
 ```
 
 ## RESTful API endpoints
-- GET `/assets/{symbol}` retrieves the price of the stock of the given symbol
-  - Example: GET `/assets/GOOGL`
-  - ![GET request to /assets/GOOGL](https://raw.githubusercontent.com/SakuraMatrix/p1-Tam-uInvest/main/img/GET%20%E2%81%84assets%E2%81%84GOOGL.png)
-- GET `/positions` retrieves a list of all currently owned stocks
-  - Example: GET `/positions`
-  - ![GET request to /positions](https://raw.githubusercontent.com/SakuraMatrix/p1-Tam-uInvest/main/img/GET%20%E2%81%84positions.png)
-- GET `/positions/{symbol}` retrieves a list of all currently owned stocks of the given symbol
-  - Example: GET `/positions/TSLA`
-  - ![GET request to /positions/TSLA](https://raw.githubusercontent.com/SakuraMatrix/p1-Tam-uInvest/main/img/GET%20%E2%81%84positions%E2%81%84TSLA.png)
-- POST `/positions/{symbol}` buys a share with the given symbol
-- DELETE `/positions` sells all currently owned shares
-- DELETE `/positions/{symbol}` sells all shares with the given symbol
+- GET `/search/{symbol}` retrieves the price of the stock of the given symbol
+  - Example: GET `/search/GOOGL`
+  - ![GET request to /search/GOOGL](https://raw.githubusercontent.com/SakuraMatrix/p1-Tam-uInvest/dev/img/GET%20%E2%81%84search%E2%81%84GOOGL.png)
+- GET `/holdings` retrieves a list of all currently owned stocks
+  - Example: GET `/holdings`
+  - ![GET request to /holdings](https://raw.githubusercontent.com/SakuraMatrix/p1-Tam-uInvest/dev/img/GET%20%E2%81%84holdings.png)
+- GET `/holdings/{symbol}` retrieves a list of all currently owned stocks of the given symbol
+  - Example: GET `/holdings/GOOGL`
+  - ![GET request to /holdings/GOOGL](https://raw.githubusercontent.com/SakuraMatrix/p1-Tam-uInvest/dev/img/GET%20%E2%81%84holdings%E2%81%84GOOGL.png)
+- POST `/holdings/{symbol}` buys a share with the given symbol
+- DELETE `/holdings` sells all currently owned shares
+- DELETE `/holdings/{symbol}` sells all shares with the given symbol
 
 ## Issues/Todo
 - Watchlist page to track stocks marked as favorite?
