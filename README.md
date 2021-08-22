@@ -67,13 +67,13 @@ $ java -jar target/uinvest-{version}-jar-with-dependencies.jar
 ## RESTful API endpoints
 - GET `/assets/{symbol}` retrieves the price of the stock of the given symbol
   - Example: GET `/assets/GOOGL`
-  - ![GET request to /assets/GOOGL](https://raw.githubusercontent.com/SakuraMatrix/p1-Tam-uInvest/main/img/GET%20%E2%81%84assets%E2%81%84GOOGL.png)
+  - ![GET request to /assets/GOOGL](https://raw.githubusercontent.com/SakuraMatrix/p1-Tam-uInvest/reactor-netty-final/img/GET%20%E2%81%84assets%E2%81%84GOOGL.png)
 - GET `/positions` retrieves a list of all currently owned stocks
   - Example: GET `/positions`
-  - ![GET request to /positions](https://raw.githubusercontent.com/SakuraMatrix/p1-Tam-uInvest/main/img/GET%20%E2%81%84positions.png)
+  - ![GET request to /positions](https://raw.githubusercontent.com/SakuraMatrix/p1-Tam-uInvest/reactor-netty-final/img/GET%20%E2%81%84positions.png)
 - GET `/positions/{symbol}` retrieves a list of all currently owned stocks of the given symbol
   - Example: GET `/positions/TSLA`
-  - ![GET request to /positions/TSLA](https://raw.githubusercontent.com/SakuraMatrix/p1-Tam-uInvest/main/img/GET%20%E2%81%84positions%E2%81%84TSLA.png)
+  - ![GET request to /positions/TSLA](https://raw.githubusercontent.com/SakuraMatrix/p1-Tam-uInvest/reactor-netty-final/img/GET%20%E2%81%84positions%E2%81%84TSLA.png)
 - POST `/positions/{symbol}` buys a share with the given symbol
 - DELETE `/positions` sells all currently owned shares
 - DELETE `/positions/{symbol}` sells all shares with the given symbol
